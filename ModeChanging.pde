@@ -5,8 +5,9 @@ void setMode(int mode) {
             DrawMode = true;
             break;
         case 1:
-            resetMode();
-            EditMode = true;
+            resetMode(); //<>//
+            EditMode = true; //<>//
+            break;
         case 2:
             resetMode();
             InspectMode = true;

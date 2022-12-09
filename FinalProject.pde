@@ -40,12 +40,10 @@ void mouseClicked() {
     if (mouseX > 50 && mouseX < 700 && mouseY > 50 && mouseY < 700) {
         if (DrawMode == true) {
             DrawModeClick();
+        } else if (EditMode == true){
+            EditModeClick();
         }
     }
-}
-
-void select() {
-    drawModeVertexSelect();
 }
 
 void controlEvent(ControlEvent theEvent) {
@@ -57,11 +55,11 @@ void controlEvent(ControlEvent theEvent) {
             setMode(0);
             clearSelected();
         } else if (theEvent.getController().getValue() == 1.0) {
-            setMode(1);
+            setMode(1); //<>//
             clearSelected();
         } else {
             setMode(2);
             clearSelected();
-        }
+        } //<>//
     }
 }

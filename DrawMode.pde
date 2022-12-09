@@ -1,4 +1,4 @@
-void DrawModeClick() { //<>// //<>// //<>// //<>//
+void DrawModeClick() { //<>//
 
     // if left clicked
     if (mouseButton == LEFT) {
@@ -6,7 +6,7 @@ void DrawModeClick() { //<>// //<>// //<>// //<>//
         boolean overlap = overlapping();
 
         // check if in range of selecting a vertex and if so select the vertex
-        drawModeVertexSelect();
+        twoVertexSelect();
 
         // if not overlapping draw vertex and deselect vertices
         if (overlap == false) {
