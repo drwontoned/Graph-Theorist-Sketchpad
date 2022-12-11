@@ -9,6 +9,9 @@ class V {
     // vertex label
     String label = "";
 
+    //vertex id
+    String id;
+    
     // vertex color
     VertexColor c;
 
@@ -20,7 +23,8 @@ class V {
     V() {
         x = mouseX;
         y = mouseY;
-        c = ColorArray[12];
+        id = "" + Vertices.size()+1;
+        c = ColorList.get(12);
     }
     
     void updatePointVariables(){
@@ -30,4 +34,19 @@ class V {
           edges.get(i).updatePointVariables();
         }
     }
+    
+    ArrayList<V> getAdjacentV(){
+      ArrayList<V> adjacentV = new ArrayList<V>();
+      for(int i = 0; i<edges.size(); i++){
+        E currentE = edges.get(i);
+        if(currentE.isLoop == false){
+          if(currentE.Vertex1.id != id){
+            adjacentV.add(currentE.Vertex2);
+          }else{
+            adjacentV.add(currentE.Vertex1);
+          }
+        }
+      }
+      return adjacentV; //<>//
+  }
 }

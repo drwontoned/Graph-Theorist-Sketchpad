@@ -19,7 +19,7 @@ Boolean DrawMode = false;
 Boolean EditMode = false;
 Boolean InspectMode = false;
 
-VertexColor[] ColorArray = setColorArray();
+ArrayList <VertexColor> ColorList = setColorList();
 
 void setup() {
     size(750, 750);
@@ -53,6 +53,14 @@ void mouseDragged() {
     if (mouseX > 50 && mouseX < 700 && mouseY > 50 && mouseY < 700) {
         move();
     }
+}
+
+void mouseWheel(MouseEvent event) {
+  float e = event.getCount();
+  println(e);
+  if(selectedVertex1 == true && selectedVertex2 == false){
+    switchColor(e);
+  }
 }
 
 void controlEvent(ControlEvent theEvent) {

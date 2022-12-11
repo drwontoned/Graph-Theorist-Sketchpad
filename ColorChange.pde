@@ -8,24 +8,121 @@ class VertexColor {
     }
 }
 
-VertexColor[] setColorArray() {
-    VertexColor[] ColorArray = new VertexColor[13];
-    ColorArray[0] = new VertexColor("Red", color(255, 0, 0));
-    ColorArray[1] = new VertexColor("RedOrange", color(255, 70, 0));
-    ColorArray[2] = new VertexColor("Orange", color(255, 127, 0));
-    ColorArray[3] = new VertexColor("OrangeYellow", color(255, 179, 0));
-    ColorArray[4] = new VertexColor("Yellow", color(255, 255, 0));
-    ColorArray[5] = new VertexColor("YellowGreen", color(0, 255, 0));
-    ColorArray[6] = new VertexColor("Green", color(0, 121, 0));
-    ColorArray[7] = new VertexColor("GreenBlue", color(0, 174, 174));
-    ColorArray[8] = new VertexColor("Blue", color(0, 0, 255));
-    ColorArray[9] = new VertexColor("BlueViolet", color(115, 8, 165));
-    ColorArray[10] = new VertexColor("Violet", color(186, 0, 255));
-    ColorArray[11] = new VertexColor("VioletRed", color(204, 0, 175));
-    ColorArray[12] = new VertexColor("White", color(255));
-    return ColorArray;
+// method to set a list of colors vertices can change to
+ArrayList < VertexColor > setColorList() {
+    ArrayList < VertexColor > ColorList = new ArrayList < VertexColor > ();
+    ColorList.add(new VertexColor("Red", color(255, 0, 0)));
+    ColorList.add(new VertexColor("RedOrange", color(255, 70, 0)));
+    ColorList.add(new VertexColor("Orange", color(255, 127, 0)));
+    ColorList.add(new VertexColor("OrangeYellow", color(255, 179, 0)));
+    ColorList.add(new VertexColor("Yellow", color(255, 255, 0)));
+    ColorList.add(new VertexColor("YellowGreen", color(0, 255, 0)));
+    ColorList.add(new VertexColor("Green", color(0, 121, 0)));
+    ColorList.add(new VertexColor("GreenBlue", color(0, 174, 174)));
+    ColorList.add(new VertexColor("Blue", color(0, 0, 255)));
+    ColorList.add(new VertexColor("BlueViolet", color(115, 8, 165)));
+    ColorList.add(new VertexColor("Violet", color(186, 0, 255)));
+    ColorList.add(new VertexColor("VioletRed", color(204, 0, 175)));
+    ColorList.add(new VertexColor("White", color(255)));
+    return ColorList;
 }
 
-void switchColor() {
-    V current = Vertices.get(selectedVertex1Index);
+// method for switching color
+void switchColor(float e) {
+    // set a list of available colors
+    ArrayList < VertexColor > availableColors = getAvailableColors(Vertices.get(selectedVertex1Index));
+    if (e > 0) {
+        Vertices.get(selectedVertex1Index).c = getNextColor(Vertices.get(selectedVertex1Index).c, availableColors);
+    } else {
+        Vertices.get(selectedVertex1Index).c = getPrevColor(Vertices.get(selectedVertex1Index).c, availableColors);
+    }
+
+
+}
+
+VertexColor getNextColor(VertexColor currentColor, ArrayList < VertexColor > availableColors) {
+    //initialize variable for next color
+    VertexColor nextColor;
+
+    // set the index for the next color
+    int colorIndex = availableColors.size() - 1;
+
+    //loop through available colors
+    for (int i = 0; i < availableColors.size(); i++) {
+        VertexColor currentC = availableColors.get(i);
+        // if the size is greater than 1
+        if (availableColors.size() > 1) { //<>//
+            // if at the end of the list set index to start of list
+            if (i == availableColors.size() - 1 && currentColor.colorName == currentC.colorName) {
+                colorIndex = 0;
+
+                // otherwise set index to next color on list
+            } else {
+                if (currentColor.colorName == currentC.colorName) {
+                    colorIndex = i + 1;
+                }
+            }
+        }
+    }
+    // set next color then return
+    nextColor = availableColors.get(colorIndex); //<>//
+    return nextColor;
+}
+
+VertexColor getPrevColor(VertexColor currentColor, ArrayList < VertexColor > availableColors) {
+    //initialize variable for prev color
+    VertexColor nextColor;
+
+    // set the index for the prev color
+    int colorIndex = availableColors.size() - 1;
+
+    //loop through available colors
+    for (int i = 0; i < availableColors.size(); i++) {
+        VertexColor currentC = availableColors.get(i);
+        // if the size is greater than 1
+        if (availableColors.size() > 1) {
+            // if at the start of the list set index to end of list
+            if (i == 0) {
+                colorIndex = availableColors.size() - 1;
+
+                // otherwise set index to prev color on list
+            } else {
+                if (currentColor.colorName == currentC.colorName) {
+                    colorIndex = i - 1;
+                }
+            }
+        }
+    }
+    // set prev color then return
+    nextColor = availableColors.get(colorIndex); //<>//
+    return nextColor;
+}
+
+// method for getting the list of colors a vertex can change to
+ArrayList < VertexColor > getAvailableColors(V currentV) {
+    // initialize the available color list to contain all colors
+    ArrayList < VertexColor > availableColors = ColorList;
+    // initialize a list of adjacent vertices
+    ArrayList < V > adjacentV = currentV.getAdjacentV();
+
+    // loop through list of adjacent
+    for (int i = 0; i < adjacentV.size(); i++) {
+        V currentAdjacent = adjacentV.get(i);
+
+        // if the adjacent color is not white
+        if (currentAdjacent.c.colorName != "White") {
+            // loop through the currently available colors
+            for (int j = 0; j < availableColors.size() - 1; j++) {
+                VertexColor currentC = availableColors.get(j);
+
+                // if the adjacent color is found in the available colors remove it
+                if (currentAdjacent.c.colorName == currentC.colorName) {
+                    availableColors.remove(i);
+                }
+            }
+        }
+    }
+
+    // return the list
+    return availableColors;
 }
