@@ -84,7 +84,7 @@ void oneVertexSelect() {
             // if looking at a non selected vertex
             } else {
                 // if there is a selected vertex 1
-                if (selectedVertex1 == true) { //<>//
+                if (selectedVertex1 == true) {
                     //deselect selected vertex 1
                     Vertices.get(selectedVertex1Index).isSelected = false;
 
@@ -93,7 +93,7 @@ void oneVertexSelect() {
                     selectedVertex1Index = i;
                     
                     // if there is not a selected vertex 1
-                } else { //<>//
+                } else {
                     // set selected vertex 1
                     selectedVertex1 = true;
                     selectedVertex1Index = i;

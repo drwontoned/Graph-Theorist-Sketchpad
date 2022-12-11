@@ -1,4 +1,4 @@
-import controlP5.*; //<>// //<>// //<>// //<>//
+import controlP5.*; //<>// //<>// //<>//
 ControlP5 cp5;
 
 // Vertices and Edges Lists
@@ -19,12 +19,15 @@ Boolean DrawMode = false;
 Boolean EditMode = false;
 Boolean InspectMode = false;
 
+VertexColor[] ColorArray = setColorArray();
+
 void setup() {
     size(750, 750);
     noStroke();
     textAlign(CENTER);
     cp5 = new ControlP5(this);
     ModeList(cp5);
+    
 }
 
 void draw() {
@@ -46,6 +49,12 @@ void mouseClicked() {
     }
 }
 
+void mouseDragged() {
+    if (mouseX > 50 && mouseX < 700 && mouseY > 50 && mouseY < 700) {
+        move();
+    }
+}
+
 void controlEvent(ControlEvent theEvent) {
     if (theEvent.isGroup()) {
         // check if the Event was triggered from a ControlGroup
@@ -55,11 +64,11 @@ void controlEvent(ControlEvent theEvent) {
             setMode(0);
             clearSelected();
         } else if (theEvent.getController().getValue() == 1.0) {
-            setMode(1); //<>//
+            setMode(1);
             clearSelected();
         } else {
             setMode(2);
             clearSelected();
-        } //<>//
+        }
     }
 }

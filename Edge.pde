@@ -32,10 +32,7 @@ class E {
         Vertex1 = v1;
         Vertex2 = v2;
 
-        x1 = v1.x;
-        y1 = v1.y;
-        x2 = v2.x;
-        y2 = v2.y;
+        setPointVariables(Vertex1, Vertex2);
 
         edgeMidPoint = midPoint();
     }
@@ -45,14 +42,8 @@ class E {
         Vertex1 = v1;
 
         isLoop = true;
-        x1 = v1.x - 10;
-        y1 = v1.y - 10;
-        x2 = v1.x - 50;
-        y2 = v1.y - 50;
-        x3 = v1.x + 50;
-        y3 = v1.y - 50;
-        x4 = v1.x + 10;
-        y4 = v1.y - 10;
+
+        setPointVariables(Vertex1);
 
         edgeMidPoint = midPoint();
     }
@@ -68,5 +59,35 @@ class E {
             midPoint[1] = ((y2 + y3) / 2) + 10;
         }
         return midPoint;
+    }
+    
+    // method for setting the point variables when regular edge
+    void setPointVariables(V v1, V v2) {
+        x1 = v1.x;
+        y1 = v1.y;
+        x2 = v2.x;
+        y2 = v2.y;
+    }
+    
+    // method for setting point variables when loop
+    void setPointVariables(V v1) {
+        x1 = v1.x - 10;
+        y1 = v1.y - 10;
+        x2 = v1.x - 50;
+        y2 = v1.y - 50;
+        x3 = v1.x + 50;
+        y3 = v1.y - 50;
+        x4 = v1.x + 10;
+        y4 = v1.y - 10;
+    }
+    
+    // method for updating the point variables when a vertex is being moved
+    void updatePointVariables() {
+        if (isLoop == false) {
+            setPointVariables(Vertex1,Vertex2);
+        } else {
+            setPointVariables(Vertex1);
+        }
+        edgeMidPoint = midPoint();
     }
 }

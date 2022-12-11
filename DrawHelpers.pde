@@ -40,7 +40,7 @@ void DrawVertices() {
             stroke(0);
             strokeWeight(2);
         }
-        fill(current.c);
+        fill(current.c.colorValue);
         circle(current.x, current.y, 50);
         noStroke();
     }

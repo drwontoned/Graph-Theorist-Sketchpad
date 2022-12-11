@@ -10,7 +10,7 @@ class V {
     String label = "";
 
     // vertex color
-    color c = color(255, 255, 255);
+    VertexColor c;
 
     // x and y position
     float x;
@@ -20,5 +20,14 @@ class V {
     V() {
         x = mouseX;
         y = mouseY;
+        c = ColorArray[12];
+    }
+    
+    void updatePointVariables(){
+        x = mouseX;
+        y = mouseY;
+        for(int i = 0; i<edges.size(); i++){
+          edges.get(i).updatePointVariables();
+        }
     }
 }
