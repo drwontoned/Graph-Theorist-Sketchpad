@@ -1,4 +1,4 @@
-void ModeList(ControlP5 cp5) { //<>// //<>//
+void ModeList(ControlP5 cp5) { //<>// //<>// //<>//
     DropdownList ModeList = cp5.addDropdownList("Mode").setPosition(0, 0);
     ModeList.addItem("Draw Mode", 0);
     ModeList.addItem("Edit Mode", 1);

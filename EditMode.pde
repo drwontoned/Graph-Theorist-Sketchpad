@@ -6,6 +6,7 @@ void EditModeClick() {
         edgeSelect();
     // if right clicked
     } else {
-        
+        deleteVertex();
+        deleteEdge();
     }
 }

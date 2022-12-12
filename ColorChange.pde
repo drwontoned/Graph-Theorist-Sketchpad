@@ -1,4 +1,4 @@
-class VertexColor {
+class VertexColor { //<>// //<>// //<>// //<>// //<>// //<>//
     String colorName;
     color colorValue;
 
@@ -30,14 +30,13 @@ ArrayList < VertexColor > setColorList() {
 // method for switching color
 void switchColor(float e) {
     // set a list of available colors
-    ArrayList < VertexColor > availableColors = getAvailableColors(Vertices.get(selectedVertex1Index));
+    ArrayList < VertexColor > availableColors = ColorList; //getAvailableColors(Vertices.get(selectedVertex1Index));
     if (e > 0) {
         Vertices.get(selectedVertex1Index).c = getNextColor(Vertices.get(selectedVertex1Index).c, availableColors);
     } else {
         Vertices.get(selectedVertex1Index).c = getPrevColor(Vertices.get(selectedVertex1Index).c, availableColors);
     }
-
-
+    updateEdgeVertex();
 }
 
 VertexColor getNextColor(VertexColor currentColor, ArrayList < VertexColor > availableColors) {
@@ -51,7 +50,7 @@ VertexColor getNextColor(VertexColor currentColor, ArrayList < VertexColor > ava
     for (int i = 0; i < availableColors.size(); i++) {
         VertexColor currentC = availableColors.get(i);
         // if the size is greater than 1
-        if (availableColors.size() > 1) { //<>//
+        if (availableColors.size() > 1) {
             // if at the end of the list set index to start of list
             if (i == availableColors.size() - 1 && currentColor.colorName == currentC.colorName) {
                 colorIndex = 0;
@@ -65,7 +64,7 @@ VertexColor getNextColor(VertexColor currentColor, ArrayList < VertexColor > ava
         }
     }
     // set next color then return
-    nextColor = availableColors.get(colorIndex); //<>//
+    nextColor = availableColors.get(colorIndex);
     return nextColor;
 }
 
@@ -94,7 +93,7 @@ VertexColor getPrevColor(VertexColor currentColor, ArrayList < VertexColor > ava
         }
     }
     // set prev color then return
-    nextColor = availableColors.get(colorIndex); //<>//
+    nextColor = availableColors.get(colorIndex);
     return nextColor;
 }
 
@@ -125,4 +124,32 @@ ArrayList < VertexColor > getAvailableColors(V currentV) {
 
     // return the list
     return availableColors;
+}
+
+void updateEdgeVertex() {
+    // loop through all edges
+    for (int i = 0; i < Edges.size(); i++) {
+        // if current edge is not a loop
+        if (Edges.get(i).isLoop == false) {
+            // loop through all vertices
+            for (int j = 0; j < Vertices.size(); j++) {
+                //if the current edges vertex1 matches the current vertex then update the edge
+                if (Edges.get(i).Vertex1.id == Vertices.get(j).id) {
+                    Edges.get(i).Vertex1 = Vertices.get(j);
+                    //if the current edges vertex1 matches the current vertex then update the edge  
+                } else if (Edges.get(i).Vertex2.id == Vertices.get(j).id) {
+                    Edges.get(i).Vertex2 = Vertices.get(j);
+                }
+            }
+            // if not loop
+        } else {
+            // loop through all vertices
+            for (int j = 0; j < Vertices.size(); j++) {
+                //if the current edges vertex1 matches the current vertex then update the edge
+                if (Edges.get(i).Vertex1.id == Vertices.get(j).id) {
+                    Edges.get(i).Vertex1 = Vertices.get(j);
+                }
+            }
+        }
+    }
 }

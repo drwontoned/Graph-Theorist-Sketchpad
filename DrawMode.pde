@@ -1,4 +1,4 @@
-void DrawModeClick() { //<>//
+void DrawModeClick() { //<>// //<>//
 
     // if left clicked
     if (mouseButton == LEFT) {

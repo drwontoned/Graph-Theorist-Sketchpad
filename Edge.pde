@@ -11,8 +11,12 @@ class E {
 
     // boolean for if the edge is directed
     boolean isDirected = false;
-
+    
+    // number of parallel edges
     int parallelCount = 0;
+    
+    // edge id
+    String id;
 
     // variables for making the line or bezier
     float x1;
@@ -33,8 +37,11 @@ class E {
         Vertex2 = v2;
 
         setPointVariables(Vertex1, Vertex2);
+        
+        id = "" + eid;
+        eid++;
 
-        edgeMidPoint = midPoint();
+        edgeMidPoint = midPoint();        
     }
 
     // loop constructor
@@ -44,6 +51,22 @@ class E {
         isLoop = true;
 
         setPointVariables(Vertex1);
+        
+        id = "" + eid;
+        eid++;
+
+        edgeMidPoint = midPoint();
+    }
+    
+    // loop constructor for converting edge into loop
+    E(V v1, String originalid){
+        Vertex1 = v1;
+
+        isLoop = true;
+
+        setPointVariables(Vertex1);
+        
+        id = originalid;
 
         edgeMidPoint = midPoint();
     }
